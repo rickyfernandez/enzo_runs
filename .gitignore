@@ -1,2 +1,10 @@
 
 DD**
+*.dat
+*.o*
+*.exe
+RunFinished
+Enzo_Build
+Enzo_Build_Diff
+Evtime
+OutputLog
