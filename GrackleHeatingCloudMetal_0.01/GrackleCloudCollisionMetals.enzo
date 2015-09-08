@@ -1,0 +1,115 @@
+# cloud collision problem
+ProblemType                = 213
+
+# domain properties
+TopGridRank                = 3
+TopGridGravityBoundary     = 1
+TopGridDimensions          = 128 128 128
+LeftFaceBoundaryCondition  = 3 3 3
+RightFaceBoundaryCondition = 3 3 3
+DomainLeftEdge             = 0 0 0
+DomainRightEdge            = 150 150 150
+
+# gravitational properties
+SelfGravity = 1
+
+# output temperature
+OutputTemperature = 1
+
+# problem specific parameters
+CloudCollisionCloud1Filename        = be_sphere
+CloudCollisionCloud2Filename        = be_sphere
+CloudCollisionCloud1Temperature	    = 6000
+CloudCollisionCloud2Temperature	    = 6000
+CloudCollisionBackgroundDensity     = 0.0027
+CloudCollisionBackgroundTemperature = 1e+06
+CloudCollisionBackgroundMu          = 0.62
+CloudCollisionCloud1Position        = 74.4141 74.4141 74.4141
+CloudCollisionCloud2Position        = 1000 1000 1000
+
+# turbulence settings
+CloudCollisionAddTurbulence   = 1
+CloudCollisionCloud1K1        = 9
+CloudCollisionCloud1K2        = 19
+CloudCollisionCloud2K1        = 9
+CloudCollisionCloud2K2        = 19
+CloudCollisionDK              = 1
+CloudCollisionCloudMachNumber = 1
+
+# initial nested grids
+CloudCollisionNumberOfInitialGrids = 3
+
+CloudCollisionGridLeftEdge[1]  = 22.2656 22.2656 22.2656
+CloudCollisionGridRightEdge[1] = 126.562 126.562 126.562
+CloudCollisionGridLevel[1]     = 1
+
+CloudCollisionGridLeftEdge[2]  = 24.6094 24.6094 24.6094
+CloudCollisionGridRightEdge[2] = 124.219 124.219 124.219
+CloudCollisionGridLevel[2]     = 2
+
+#CloudCollisionGridLeftEdge[3]  = 0 0 0
+#CloudCollisionGridRightEdge[3] = 0 0 0
+#CloudCollisionGridLevel[3]     = 1
+#
+#CloudCollisionGridLeftEdge[4]  = 0 0 0
+#CloudCollisionGridRightEdge[4] = 0 0 0
+#CloudCollisionGridLevel[4]     = 2
+
+# output properties
+ParallelRootGridIO = 1
+StopTime     = 6
+dtDataDump   = 0.25
+DataDumpName = cloud_collision_
+
+# units
+LengthUnits = 3.08568e+18
+MassUnits   = 1.98892e+33
+TimeUnits   = 3.08568e+13
+
+# hydro properties
+#Gamma                           = 1.67
+Mu                              = 1.30
+CourantSafetyNumber             = 0.3
+#RadiativeCooling                = 1
+#MultiSpecies                    = 1
+FluxCorrection                  = 1
+HydroMethod                     = 2
+#UseMinimumPressureSupport       = 2
+#MinimumPressureSupportParameter = 0.00097344
+#PhotoelectricHeating            = 0
+#PhotoelectricHeatingRate        = 6.07e-26
+
+# grackle parameters
+RadiativeCooling = 1
+use_grackle = 1
+with_radiative_cooling = 1
+MultiSpecies = 1
+MetalCooling = 1
+grackle_data_file = CloudyData_UVB_HM2012.h5
+UVbackground = 1
+Gamma = 1.67
+OutputCoolingTime = 1
+
+# species - Ric
+# Initial species fractions, fiddle at own risk,
+#SolarMetalFractionByMass  = 0.02041  // not sure about this variable
+TestProblemInitialMetallicityFraction = 0.0002041 # 1% of solar metallicity
+TestProblemUseMetallicityField = 1
+TestProblemInitialHIFraction      = 0.0001
+#MetalCooling              = 1             // ric 
+TestProblemInitialHIIFraction     = 0.9999
+TestProblemInitialHeIFraction     = 0.0001
+TestProblemInitialHeIIFraction    = 0.0001
+TestProblemInitialHeIIIFraction   = 0.9998
+#TestProblemInitialHMFraction      = 1.e-20
+#TestProblemInitialH2IFraction     = 1.e-5
+#TestProblemInitialH2IIFraction    = 1.e-20
+
+# amr
+MinimumEfficiency        = 0.4
+StaticHierarchy          = 0
+MaximumRefinementLevel   = 3
+RefineBy                 = 2
+CellFlaggingMethod       = 2 6 # refine by baryon mass and jeans length
+MinimumMassForRefinement = 0.1
+RefineByJeansLengthSafetyFactor = 4
