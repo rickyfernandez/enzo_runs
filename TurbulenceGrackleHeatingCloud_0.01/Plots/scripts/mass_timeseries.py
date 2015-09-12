@@ -1,10 +1,10 @@
 import yt
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+M_sun = 1.99E33      # mass of sun in g
 pc_to_cm = 3.0857E18 # 1pc in cm
-plot_range = range(5) 
+plot_range = range(0,24,2) 
 
 num_plots = len(plot_range)
 colormap = plt.cm.gist_ncar
@@ -18,15 +18,15 @@ labels = []
 for file in file_names:
 
     ds = yt.load(file)
-    sphere = ds.sphere("c", (75, "pc"))
-    plot = yt.ProfilePlot(sphere, "radius", ["temperature"],
-            weight_field="cell_mass")
+    sphere = ds.sphere("max", (75, "pc"))
+    plot = yt.ProfilePlot(sphere, "radius", "cell_mass",
+            weight_field=None, accumulation=True)
     profile = plot.profiles[0]
-    plt.loglog(profile.x/pc_to_cm, profile["temperature"])
+    plt.loglog(profile.x/pc_to_cm, profile["cell_mass"]/M_sun)
     labels.append(r"%0.2f Myr" % ds.current_time.value)
 
 plt.xlabel(r"Radius $(\mathrm{pc})$")
-plt.ylabel(r"Temperature $(\mathrm{K})$")
+plt.ylabel(r"Enclosed Mass $(\mathrm{M_{\odot}})$")
 plt.xlim(1,75)
-plt.legend(labels, loc="upper left", frameon=False, prop={'size':10})
-plt.savefig("temperature_series")
+plt.legend(labels, loc="lower right", frameon=False)
+plt.savefig("mass_series")

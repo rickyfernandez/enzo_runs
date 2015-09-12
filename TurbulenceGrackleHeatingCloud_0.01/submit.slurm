@@ -10,4 +10,5 @@
 
 module load impi
 module load hdf5
-ibrun ./enzo.exe -d GrackleCloudCollisionMetals.enzo
+#ibrun ./enzo.exe -d GrackleCloudCollisionMetals.enzo
+ibrun ./enzo.exe -d -r DD0023/cloud_collision_0023

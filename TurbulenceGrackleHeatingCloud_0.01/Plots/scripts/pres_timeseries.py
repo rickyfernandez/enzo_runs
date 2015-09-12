@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 pc_to_cm = 3.0857E18 # 1pc in cm
-plot_range = range(5) 
+plot_range = range(0,24,2) 
 
 num_plots = len(plot_range)
 colormap = plt.cm.gist_ncar

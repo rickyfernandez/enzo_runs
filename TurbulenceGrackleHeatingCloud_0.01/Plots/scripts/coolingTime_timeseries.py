@@ -4,7 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 pc_to_cm = 3.0857E18 # 1pc in cm
-plot_range = range(5) 
+sec_to_Myr = 60.0*60.0*24.0*365*1.0E6
+plot_range = range(0,24,2) 
 
 num_plots = len(plot_range)
 colormap = plt.cm.gist_ncar
@@ -19,14 +20,14 @@ for file in file_names:
 
     ds = yt.load(file)
     sphere = ds.sphere("max", (75, "pc"))
-    plot = yt.ProfilePlot(sphere, "radius", ["number_density"],
+    plot = yt.ProfilePlot(sphere, "radius", ["Cooling_Time"],
             weight_field="cell_mass")
     profile = plot.profiles[0]
-    plt.loglog(profile.x/pc_to_cm, profile["number_density"])
+    plt.loglog(profile.x/pc_to_cm, profile["Cooling_Time"]/sec_to_Myr)
     labels.append(r"%0.2f Myr" % ds.current_time.value)
 
 plt.xlabel(r"Radius $(\mathrm{pc})$")
-plt.ylabel(r"Number Density $(\mathrm{cm}^{-3})$")
+plt.ylabel(r"Cooling Time $(Myr)$")
 plt.xlim(1,75)
-plt.legend(labels, loc="upper right", frameon=False)
-plt.savefig("density_series")
+plt.legend(labels, loc="lower right", frameon=False, prop={'size':11})
+plt.savefig("cooling_series")
